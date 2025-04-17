@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace ECOM_UtilisateurMicroservice.Controllers
 {
@@ -48,7 +50,8 @@ namespace ECOM_UtilisateurMicroservice.Controllers
             }
         }
 
-        [HttpGet("{sellerId}", Name = "GetSeller")]
+        [HttpGet("{sellerId}")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -56,19 +59,33 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         {
             try
             {
+                // Check if user has access to this seller
+                var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
+                var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value ?? "0");
+                
+                // Only allow the seller to access their own data
+                if (userType == "Seller" && userId != sellerId && userId != 0)
+                {
+                    return Forbid("You can only access your own seller data");
+                }
+
                 Models.Seller? seller = _userDbContext.Sellers.Find(sellerId);
-                if (seller is not null)
-                    return Ok(seller);
-                else
-                    return NotFound($"L'utilisateur avec l'Id ({sellerId}) fourni n'existe pas !");
+                
+                if (seller == null)
+                {
+                    return NotFound($"The seller with ID ({sellerId}) does not exist!");
+                }
+                
+                return Ok(seller);
             }
             catch (Exception)
             {
-                return BadRequest("Une erreur est surevenu lors du traitement de la requête !");
+                return StatusCode(500, "An error occurred while processing your request.");
             }
         }
 
-        [HttpDelete("{sellerId}", Name = "RemoveSeller")]
+        [HttpDelete("{sellerId}")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]

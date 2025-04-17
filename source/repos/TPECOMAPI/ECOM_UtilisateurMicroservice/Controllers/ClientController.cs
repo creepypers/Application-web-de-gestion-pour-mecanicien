@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECOM_UtilisateurMicroservice.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace ECOM_UtilisateurMicroservice.Controllers
@@ -52,15 +54,29 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [Authorize]
         public IActionResult GetClient(int clientId)
         {
             try
             {
+                // Check if user has access to this client
+                var userType = User.Claims.FirstOrDefault(c => c.Type == "UserType")?.Value;
+                var userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value ?? "0");
+                
+                // Only allow the client to access their own data or any seller
+                if (userType == "Client" && userId != clientId && userId != 0)
+                {
+                    return Forbid("You can only access your own client data");
+                }
+
                 Models.Client? client = _userDbContext.Clients.Find(clientId);
-                if (client is not null)
-                    return Ok(client);
-                else
-                    return NotFound($"L'utilisateur avec l'Id ({clientId}) fourni n'existe pas !");
+                
+                if (client == null)
+                {
+                    return NotFound();
+                }
+                
+                return Ok(client);
             }
             catch (Exception)
             {
@@ -72,6 +88,7 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [Authorize]
         public IActionResult RemoveClient(int clientId)
         {
             try
