@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen(config =>
 {
     config.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Order Manager Service - Rest API",
+        Title = "Order Manager Service - Rest API",
     });
 });
 
@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(config =>
     {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Manager Service - Rest API V1.0");
+        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Manager Service -ï¿½Restï¿½APIï¿½V1.0");
     });
 }
 

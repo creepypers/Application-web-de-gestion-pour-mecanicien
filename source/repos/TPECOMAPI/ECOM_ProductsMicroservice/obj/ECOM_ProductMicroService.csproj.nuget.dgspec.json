@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ProductServices\\ECOM_ProductMicroService.csproj": {}
+    "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_ProductsMicroservice\\ECOM_ProductMicroService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ProductServices\\ECOM_ProductMicroService.csproj": {
+    "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_ProductsMicroservice\\ECOM_ProductMicroService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ProductServices\\ECOM_ProductMicroService.csproj",
+        "projectUniqueName": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_ProductsMicroservice\\ECOM_ProductMicroService.csproj",
         "projectName": "ECOM_ProductMicroService",
-        "projectPath": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ProductServices\\ECOM_ProductMicroService.csproj",
+        "projectPath": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_ProductsMicroservice\\ECOM_ProductMicroService.csproj",
         "packagesPath": "C:\\Users\\Administrateur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ProductServices\\obj\\",
+        "outputPath": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_ProductsMicroservice\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -53,6 +53,18 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.1.1, )"
             }
           },
           "imports": [

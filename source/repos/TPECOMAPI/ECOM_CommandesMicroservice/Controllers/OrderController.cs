@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
-namespace E.Controllers
+namespace ECOM_CommandesMicroservice.Controllers
 {
     [Route("api/orders")]
     [ApiController]

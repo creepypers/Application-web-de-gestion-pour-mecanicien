@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EC_Order_Service.Models
+namespace ECOM_CommandesMicroservice.Models
 {
     public class Product
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EC_Product_Service.Models
+namespace ECOM_ProductsMicroservice.Models
 {
     public class ProductModel
     {

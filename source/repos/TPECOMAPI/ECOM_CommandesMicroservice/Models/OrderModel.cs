@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EC_Order_Service.Models
+namespace ECOM_CommandesMicroservice.Models
 {
     public class OrderModel
     {

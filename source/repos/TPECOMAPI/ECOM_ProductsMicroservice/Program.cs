@@ -8,7 +8,7 @@ builder.Services.AddSwaggerGen(config =>
 {
     config.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Product Manager Service - Rest API",
+        Title = "Product Manager Service - Rest API",
     });
 });
 
@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(config =>
     {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Product Manager Service - Rest API V1.0");
+        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Product Manager Service - Rest API V1.0");
     });
 }
 

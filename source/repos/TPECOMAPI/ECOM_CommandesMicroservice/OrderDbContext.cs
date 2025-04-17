@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EC_Order_Service
+namespace ECOM_CommandesMicroservice
 {
     public class OrderDbContext : DbContext
     {

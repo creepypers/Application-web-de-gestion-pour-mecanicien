@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace E.Controllers
+namespace ECOM_CommandesMicroservice.Controllers
 {
     [Route("api/orders/items")]
     [ApiController]
