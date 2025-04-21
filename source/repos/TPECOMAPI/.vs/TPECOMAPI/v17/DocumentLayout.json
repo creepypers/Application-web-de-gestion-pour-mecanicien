@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{27480C25-9484-41FF-93D5-97C354733001}|EC GATEWAY\\ECOM_GATEWAY.csproj|c:\\users\\administrateur\\source\\repos\\tpecomapi\\ec gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{27480C25-9484-41FF-93D5-97C354733001}|EC GATEWAY\\ECOM_GATEWAY.csproj|solutionrelative:ec gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D49F00D7-1CCB-41DB-ADBB-FD9B204CB0B1}|ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj|c:\\users\\administrateur\\source\\repos\\tpecomapi\\ecom_commandesmicroservice\\ecom_commandesmicroservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D49F00D7-1CCB-41DB-ADBB-FD9B204CB0B1}|ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj|solutionrelative:ecom_commandesmicroservice\\ecom_commandesmicroservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,34 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\EC GATEWAY\\Program.cs",
-              "RelativeDocumentMoniker": "EC GATEWAY\\Program.cs",
-              "ToolTip": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\EC GATEWAY\\Program.cs",
-              "RelativeToolTip": "EC GATEWAY\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T01:07:10.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ECOM_CommandesMicroservice",
-              "DocumentMoniker": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj",
-              "RelativeDocumentMoniker": "ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj",
-              "ToolTip": "C:\\Users\\Administrateur\\source\\repos\\TPECOMAPI\\ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj",
-              "RelativeToolTip": "ECOM_CommandesMicroservice\\ECOM_CommandesMicroservice.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-17T01:02:39.384Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"

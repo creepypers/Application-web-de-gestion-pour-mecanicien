@@ -1,31 +1,59 @@
-using Microsoft.OpenApi.Models;
+using MMLib.SwaggerForOcelot.DependencyInjection;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMvc(config => config.EnableEndpointRouting = false).AddNewtonsoftJson(config =>
+builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
+
+var routes = "Routes";
+
+builder.Configuration.AddOcelotWithSwaggerSupport(options =>
 {
-    config.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    options.Folder = routes;
 });
 
-builder.Services.AddSwaggerGen(config =>
-{
-    config.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Order Manager Service - Rest API",
-    });
-});
+builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
 var app = builder.Build();
 
 app.UseMvc();
 
-if (app.Environment.IsDevelopment())
+app.UseSwaggerForOcelotUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(config =>
-    {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Manager Service -�Rest�API�V1.0");
-    });
-}
+    options.PathToSwaggerGenerator = "/swagger/docs";
+});
+    
+app.UseOcelot().Wait();
+
+app.Run();using MMLib.SwaggerForOcelot.DependencyInjection;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
+
+var routes = "Routes";
+
+builder.Configuration.AddOcelotWithSwaggerSupport(options =>
+{
+    options.Folder = routes;
+});
+
+builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
+var app = builder.Build();
+
+app.UseMvc();
+
+app.UseSwaggerForOcelotUI(options =>
+{
+    options.PathToSwaggerGenerator = "/swagger/docs";
+});
+    
+app.UseOcelot().Wait();
 
 app.Run();

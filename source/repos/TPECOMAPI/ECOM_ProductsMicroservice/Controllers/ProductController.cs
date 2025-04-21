@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace EC_Product_Service.Controllers
 {
@@ -7,14 +9,17 @@ namespace EC_Product_Service.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-
         private ProductDbContext _productDbContext;
         private HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
+        private readonly string _gatewayUrl;
 
-        public ProductController()
+        public ProductController(IConfiguration configuration)
         {
+            _configuration = configuration;
             _productDbContext = new ProductDbContext();
             _httpClient = new HttpClient();
+            _gatewayUrl = _configuration["ApiGateway:Url"] ?? "http://localhost:5000";
         }
 
         [HttpGet(Name = "GetProducts")]
@@ -34,13 +39,14 @@ namespace EC_Product_Service.Controllers
         }
 
         [HttpPost(Name = "AddProduct")]
+        [Authorize]
         [ProducesResponseType(typeof(Models.Product), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> AddProduct([FromBody] Models.ProductModel model)
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"http://localhost:5001/api/users/sellers/{model.SellerId}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_gatewayUrl}/api/users/vendeurs/{model.SellerId}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -69,6 +75,7 @@ namespace EC_Product_Service.Controllers
         }
 
         [HttpDelete("{productId}", Name = "RemoveProduct")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]

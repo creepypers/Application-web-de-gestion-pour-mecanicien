@@ -1,0 +1,8 @@
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.csproj.AssemblyReference.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.AssemblyInfoInputs.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.AssemblyInfo.cs
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.csproj.CoreCompileInputs.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_ProductsMicroservice\obj\Debug\net9.0\ECOM_ProductMicroService.sourcelink.json

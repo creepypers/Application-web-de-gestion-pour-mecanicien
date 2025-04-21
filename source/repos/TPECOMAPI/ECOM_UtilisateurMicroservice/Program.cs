@@ -1,78 +1,62 @@
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using System.Text;
+using ECOM_UtilisateurMicroservice.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMvc(config => config.EnableEndpointRouting = false);
+// Add services to the container
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
-// Configure JWT authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
-            builder.Configuration["Jwt:SecretKey"] ?? "YourSuperSecretKey123!@#$%^&*()")),
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ClockSkew = TimeSpan.Zero
-    };
-});
+// Add HttpClient and DummyJsonService
+builder.Services.AddHttpClient<DummyJsonService>();
+builder.Services.AddScoped<DummyJsonService>();
+builder.Services.AddScoped<DbInitializer>();
 
-builder.Services.AddSwaggerGen(config =>
-{
-    config.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "User Manager Service - RestAPI",
-    });
-    
-    // Add JWT Authentication to Swagger
-    config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme."
-    });
+// Add DbContext
+builder.Services.AddDbContext<ECOM_UtilisateurMicroservice.UtilisateurDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    config.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }
-    });
-});
+
+
+// Add Swagger
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Add authentication middleware
-app.UseAuthentication();
-app.UseMvc();
+// Seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try 
+    {
+        var dbInitializer = services.GetRequiredService<DbInitializer>();
+        await dbInitializer.InitializeDatabaseAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(config =>
-    {
-        config.SwaggerEndpoint("/swagger/v1/swagger.json", "User Manager Service - RestAPI V1.0");
-    });
+    app.UseSwaggerUI();
 }
+
+// Enable CORS
+
+app.UseHttpsRedirection();
+app.UseAuthentication();  // Add this before UseAuthorization
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();

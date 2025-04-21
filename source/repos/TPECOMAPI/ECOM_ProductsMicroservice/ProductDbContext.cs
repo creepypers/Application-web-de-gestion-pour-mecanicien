@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EC_Product_Service
+
+
+namespace ECOM_ProductsMicroservice
 {
     public class ProductDbContext : DbContext
     {
