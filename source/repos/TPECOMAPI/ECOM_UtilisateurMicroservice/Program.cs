@@ -1,10 +1,6 @@
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using ECOM_UtilisateurMicroservice.Services;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +17,14 @@ builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddDbContext<ECOM_UtilisateurMicroservice.UtilisateurDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-
 // Add Swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(config =>
+{
+    config.SwaggerDoc("v1", new OpenApiInfo
+    {
+            Title = "Utilisateur Microservice - RestAPI",
+    });
+});
 
 var app = builder.Build();
 
@@ -48,13 +48,14 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(config =>
+    {
+        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Utilisateur Microservice - RestAPI V1.0");
+    });
 }
 
-// Enable CORS
 
 app.UseHttpsRedirection();
-app.UseAuthentication();  // Add this before UseAuthorization
 app.UseAuthorization();
 
 app.MapControllers();

@@ -187,7 +187,6 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         }
 
         [HttpGet("vendeurs", Name = "GetVendeurs")]
-        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult GetVendeurs()
