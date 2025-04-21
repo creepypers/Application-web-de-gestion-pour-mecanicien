@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using ECOM_PanierMicroservice.Services;
 
 namespace ECOM_PanierMicroservice
 {
@@ -11,37 +9,16 @@ namespace ECOM_PanierMicroservice
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSingleton<ICartService, CartService>();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
-            // Add JWT Authentication
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
-                            builder.Configuration["Jwt:SecretKey"] ?? "YourSuperSecretKey123!@#$%^&*()")),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
-
-            // Add CORS
-            builder.Services.AddCors(options =>
+            // Add Swagger
+            builder.Services.AddSwaggerGen(c =>
             {
-                options.AddPolicy("AllowAll", 
-                    builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+                c.SwaggerDoc("v1", new() { Title = "ECOM Panier Microservice API", Version = "v1" });
             });
-
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
@@ -51,9 +28,6 @@ namespace ECOM_PanierMicroservice
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            // Enable CORS
-            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
             app.UseAuthentication();  // Add this before UseAuthorization

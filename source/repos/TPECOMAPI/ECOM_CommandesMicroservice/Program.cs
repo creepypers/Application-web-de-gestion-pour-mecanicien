@@ -1,59 +1,68 @@
-using MMLib.SwaggerForOcelot.DependencyInjection;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
+using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using ECOM_CommandesMicroservice;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
+// Configure database
+string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+string database_name = "ec_order_db";
+builder.Services.AddDbContext<OrderDbContext>(options => 
+    options.UseSqlServer($"{connection_string};Database={database_name};"));
 
-var routes = "Routes";
+// Register HttpClient
+builder.Services.AddHttpClient();
 
-builder.Configuration.AddOcelotWithSwaggerSupport(options =>
+// Configure JSON serialization
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
+// Add CORS for cross-service communication
+builder.Services.AddCors(options =>
 {
-    options.Folder = routes;
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
 });
 
-builder.Services.AddOcelot(builder.Configuration);
-builder.Services.AddSwaggerForOcelot(builder.Configuration);
+// Add Swagger
+builder.Services.AddSwaggerGen(config =>
+{
+    config.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Commandes Manager Service - Rest API",
+        Version = "v1"
+    });
+});
 
 var app = builder.Build();
 
-app.UseMvc();
+// Apply CORS
+app.UseCors();
 
-app.UseSwaggerForOcelotUI(options =>
+// Configure middleware
+if (app.Environment.IsDevelopment())
 {
-    options.PathToSwaggerGenerator = "/swagger/docs";
-});
-    
-app.UseOcelot().Wait();
+    app.UseSwagger();
+    app.UseSwaggerUI(config =>
+    {
+        config.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Manager Service - Rest API V1.0");
+    });
+}
 
-app.Run();using MMLib.SwaggerForOcelot.DependencyInjection;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
-
-var routes = "Routes";
-
-builder.Configuration.AddOcelotWithSwaggerSupport(options =>
-{
-    options.Folder = routes;
-});
-
-builder.Services.AddOcelot(builder.Configuration);
-builder.Services.AddSwaggerForOcelot(builder.Configuration);
-
-var app = builder.Build();
-
-app.UseMvc();
-
-app.UseSwaggerForOcelotUI(options =>
-{
-    options.PathToSwaggerGenerator = "/swagger/docs";
-});
-    
-app.UseOcelot().Wait();
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();

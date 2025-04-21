@@ -8,13 +8,31 @@ namespace ECOM_CommandesMicroservice.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private OrderDbContext _orderDbContext;
-        private HttpClient _httpClient;
+        private readonly OrderDbContext _orderDbContext;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public OrderController()
+        public OrderController(OrderDbContext orderDbContext, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-            _orderDbContext = new OrderDbContext();
-            _httpClient = new HttpClient();
+            _orderDbContext = orderDbContext;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
+        }
+
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public IActionResult GetAllOrders()
+        {
+            try
+            {
+                var orders = _orderDbContext.Orders.Include(o => o.Items).ToList();
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Une erreur est survenue lors du traitement de la requête : {ex.Message}");
+            }
         }
 
         [HttpGet("{orderId}", Name = "GetOrder")]
@@ -25,15 +43,15 @@ namespace ECOM_CommandesMicroservice.Controllers
         {
             try
             {
-                Models.Order? order = _orderDbContext.Orders.Include(o => o.Items).Where(o => o.OrderId == orderId).First();
+                var order = _orderDbContext.Orders.Include(o => o.Items).FirstOrDefault(o => o.OrderId == orderId);
                 if (order is not null)
                     return Ok(order);
                 else
                     return NotFound($"La commande avec l'Id ({orderId}) fourni n'existe pas !");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Une erreur est surevenu lors du traitement de la requête !");
+                return BadRequest($"Une erreur est survenue lors du traitement de la requête : {ex.Message}");
             }
         }
 
@@ -44,29 +62,33 @@ namespace ECOM_CommandesMicroservice.Controllers
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"http://localhost:5001/api/users/clients/{model.ClientId}");
+                var httpClient = _httpClientFactory.CreateClient();
+                var userServiceUrl = _configuration["ServiceUrls:UserService"] ?? "http://localhost:5001";
+                
+                HttpResponseMessage response = await httpClient.GetAsync($"{userServiceUrl}/api/users/clients/{model.ClientId}");
 
                 if (response.IsSuccessStatusCode)
                 {
                     Models.Order order = new Models.Order()
                     {
                         ClientId = model.ClientId,
-                        TotalPrice = 0
-                };
+                        TotalPrice = 0,
+                        Items = new List<Models.OrderItem>()
+                    };
 
                     _orderDbContext.Orders.Add(order);
                     _orderDbContext.SaveChanges();
 
-                    return Created($"{Request.Host}{Request.PathBase}{Request.Path}{Request.QueryString}/{order.OrderId}", order);
+                    return Created($"{Request.Scheme}://{Request.Host}{Request.Path}/{order.OrderId}", order);
                 }
                 else
                 {
                     return NotFound($"Le client avec l'Id ({model.ClientId}) fourni n'existe pas !");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Une erreur est surevenu lors du traitement de la requête !");
+                return BadRequest($"Une erreur est survenue lors du traitement de la requête : {ex.Message}");
             }
         }
 
@@ -78,19 +100,25 @@ namespace ECOM_CommandesMicroservice.Controllers
         {
             try
             {
-                Models.Order? order = _orderDbContext.Orders.Find(orderId);
+                var order = _orderDbContext.Orders.Include(o => o.Items).FirstOrDefault(o => o.OrderId == orderId);
                 if (order is not null)
                 {
+                    if (order.Items != null && order.Items.Any())
+                    {
+                        _orderDbContext.OrderItems.RemoveRange(order.Items);
+                    }
+                    
                     _orderDbContext.Orders.Remove(order);
                     _orderDbContext.SaveChanges();
-                    return Ok($"La commande avec l'Id ({orderId}) a été supprimé avec succès.");
+                    
+                    return Ok($"La commande avec l'Id ({orderId}) a été supprimée avec succès.");
                 }
                 else
                     return NotFound($"La commande avec l'Id ({orderId}) fourni n'existe pas !");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Une erreur est surevenu lors du traitement de la requête !");
+                return BadRequest($"Une erreur est survenue lors du traitement de la requête : {ex.Message}");
             }
         }
     }
