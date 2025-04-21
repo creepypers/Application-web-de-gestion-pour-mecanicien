@@ -11,13 +11,21 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Define the routes folder
+var routes = "Routes";
+
 // Load configuration
 builder.Configuration
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
+
+// Configure Ocelot with Swagger Support
+builder.Configuration.AddOcelotWithSwaggerSupport(options =>
+{
+    options.Folder = routes;
+});
 
 // Add Ocelot and SwaggerForOcelot services
 builder.Services.AddOcelot(builder.Configuration);

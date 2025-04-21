@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ECOM_UtilisateurMicroservice")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20f5711f3ac1e5bab45eb7c4009bc20b020f0eec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f505c7caa199429673079944f195efc87dafa3e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ECOM_UtilisateurMicroservice")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ECOM_UtilisateurMicroservice")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

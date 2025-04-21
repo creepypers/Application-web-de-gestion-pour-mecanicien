@@ -8,7 +8,6 @@ C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ECO
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ECOM_Gateway.sourcelink.json
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\appsettings.json
-C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\ocelot.json
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\ECOM_Gateway.staticwebassets.endpoints.json
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\ECOM_Gateway.exe
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\ECOM_Gateway.deps.json
@@ -95,3 +94,11 @@ C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ref
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ECOM_Gateway.pdb
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ECOM_Gateway.genruntimeconfig.cache
 C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\obj\Debug\net9.0\ref\ECOM_Gateway.dll
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.cart.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.global.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.orders.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.payment.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.products.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.SwaggerEndPoints.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\Routes\ocelot.users.json
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_Gateway\bin\Debug\net9.0\ocelot.json

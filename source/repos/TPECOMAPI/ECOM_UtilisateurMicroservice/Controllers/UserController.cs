@@ -19,6 +19,7 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         }
 
         [HttpGet(Name = "GetUsers")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public IActionResult GetUsers()
@@ -106,6 +107,7 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         }
 
         [HttpPut("{id}", Name = "UpdateUser")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -145,6 +147,7 @@ namespace ECOM_UtilisateurMicroservice.Controllers
         }
 
         [HttpDelete("{id}", Name = "RemoveUser")]
+        [Authorize]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]

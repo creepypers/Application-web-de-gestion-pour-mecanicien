@@ -1,0 +1,8 @@
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.csproj.AssemblyReference.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.AssemblyInfoInputs.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.AssemblyInfo.cs
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.csproj.CoreCompileInputs.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Administrateur\source\repos\TPECOMAPI\ECOM_PayementMicroservice\obj\Debug\net9.0\ECOM_PayementMicroservice.sourcelink.json
